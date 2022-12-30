@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup"
 import { Link } from "react-router-dom"
 import { ContainerLogin, ContentAcesso, ContentImg, ContentLogin, Form } from './style';
+import {TextoPage} from "../Texto/TextoPage" 
 import { MdEmail, MdVpnKey } from "react-icons/md"
 import imgLogin from "../../assets/imgLogin.png"
 
@@ -25,7 +26,7 @@ export function C_login() {
                 </ContentImg>
                 <ContentAcesso>
                     <Form onSubmit={handleSubmit(() => { console.log('teste') })}>
-                        <h1>Login</h1>
+                        <TextoPage>Login</TextoPage>
                         <div>
                             {/* icone do input */}
                             <MdEmail style={estilosIcon} />
@@ -54,8 +55,11 @@ export function C_login() {
                             <input type="submit" value="Login" />
                         </div>
                         <Link to="/recuperar">Esqueceu o Usuário/Senha?</Link>
+                        <Link to="/cadastro" estilo="link">Criar conta</Link>
                     </Form>
+
                 </ContentAcesso >
+
             </ContentLogin>
         </ContainerLogin >
     );

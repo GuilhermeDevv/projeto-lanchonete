@@ -1,5 +1,5 @@
-import { MdEmail } from "react-icons/md";
 import styled from "styled-components";
+
 
 export const ContainerLogin = styled.main`
     position: relative;
@@ -39,39 +39,50 @@ height: 100%;
     width: 260px;
 }
 
+
+@media(max-width:570px){
+    width: 0%;
+   
+}
+
 `
 
 export const ContentAcesso = styled.aside`
-
+  
 width: 50%;
 height: 80%;
 display: flex;
 align-items: center;
-
+@media(max-width:570px){
+    
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 
 `
 export const Form = styled.form`
     position: absolute;
+    
     width: 100%;
     max-width: 40%;
+    @media(max-width:570px){
+        max-width: 100%;
+        
+    
+    }
 
-  & h1{
-    color: black;
-    font-weight: 700;
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 3px;
-  
-    
-    
-  }
+ 
     
     & div{
+        height:100%;
+        
         & input{
             background-color: #e7e7e7;
             height: 3.5rem;
             margin-bottom: 3px;
             width: 100%;
+            min-width: 220px;
             border-radius: 10px;
         }
         & input[estilo='input'] {
@@ -101,5 +112,14 @@ export const Form = styled.form`
         }
         
     }
+    & a[estilo="link"]{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        top: 0.5rem;
+   
+    }
+
+
 
 `
