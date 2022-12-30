@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     list-style: none;
     outline: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Mulish', sans-serif;
 }
 a{
     text-decoration: none;
@@ -16,6 +16,10 @@ a{
 }
 html{
     font-size: 62.5%;
+}
+body{
+    width: 100%;
+    height: 100%;
 }
 
 img{

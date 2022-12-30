@@ -1,3 +1,4 @@
+import { Rotas } from './routes/rotas'
 import GlobalStyle from './styles/GlobalStyles'
 function App() {
 
@@ -5,6 +6,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <Rotas />
     </>
   )
 }
