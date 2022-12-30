@@ -84,7 +84,10 @@ export const Form = styled.form`
                 transform: scale(1.01);
             }
         }
-        
+        & span{
+            color:red;
+            font-size: 12px;
+        }
     }
     & a{
         background-color: transparent;
@@ -93,6 +96,9 @@ export const Form = styled.form`
         font-size: 12px;
         color:black;
         max-width: 100%;
+        &:hover{
+            color:blue;
+        }
         
     }
 
