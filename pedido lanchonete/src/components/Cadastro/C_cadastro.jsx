@@ -49,7 +49,7 @@ export function C_cadastro() {
                     <Form onSubmit={handleSubmit(criarUsuario)}>
                         <TextoPage>Registro</TextoPage>
                         <div>
-                            {/* icone do input */}
+                            {/* ícone do input */}
                             <MdSupervisedUserCircle style={estilosIcon} />
 
                             <input
@@ -61,7 +61,7 @@ export function C_cadastro() {
                             <span>{errors.nome?.message}</span>
                         </div>
                         <div>
-                            {/* icone do input */}
+                            {/* ícone do input */}
                             <MdEmail style={estilosIcon} />
 
                             <input
@@ -73,7 +73,7 @@ export function C_cadastro() {
                             <span>{errors.email?.message}</span>
                         </div>
                         <div>
-                            {/* icone do input */}
+                            {/* ícone do input */}
                             <MdVpnKey style={estilosIcon} />
 
                             <input

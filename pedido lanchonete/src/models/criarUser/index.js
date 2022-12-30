@@ -1,9 +1,9 @@
 const mongoose = require("mongoose")
 
 const schema = new mongoose.Schema({
-    nome: string,
-    senha: string,
-    senha: string
+    nome: String,
+    senha: String,
+    email: String
 })
 
 const ModelCriarUser = mongoose.model("usuario", schema)
