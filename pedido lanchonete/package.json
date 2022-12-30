@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "gl":"nodemon src/server/index.js"
+    "gl": "nodemon src/server/index.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "axios": "^1.2.2",
     "express": "^4.18.2",
     "mongoose": "^6.8.2",
     "react": "^18.2.0",
