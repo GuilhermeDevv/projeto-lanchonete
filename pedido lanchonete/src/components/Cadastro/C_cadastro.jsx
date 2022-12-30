@@ -1,12 +1,14 @@
 import React from 'react';
-
+import axios from "axios"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup"
+import { Link } from 'react-router-dom'
 import { ContainerCadastro, ContentAcesso, ContentImg, ContentCadastro, Form } from './style';
 import { TextoPage } from "../Texto/TextoPage"
-import { MdEmail, MdVpnKey } from "react-icons/md"
+import { MdEmail, MdVpnKey,MdSupervisedUserCircle } from "react-icons/md"
 import imgLogin from "../../assets/imgLogin.png"
+
 
 
 
@@ -18,9 +20,17 @@ const schema = yup.object({
 
 }).required()
 
-function criarUsuario(dados) {
-
-    
+function criarUsuario({ nome, senha, email }) {
+    axios.defaults.baseURL = "http://127.0.0.1:8080"
+    axios.post("/criarUsuario", {
+        nome,
+        senha,
+        email
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => { console.log(response) }).catch(err => { console.log(err) })
 }
 
 
@@ -40,7 +50,7 @@ export function C_cadastro() {
                         <TextoPage>Registro</TextoPage>
                         <div>
                             {/* icone do input */}
-                            <MdEmail style={estilosIcon} />
+                            <MdSupervisedUserCircle style={estilosIcon} />
 
                             <input
                                 type="text"
@@ -89,7 +99,7 @@ export function C_cadastro() {
                         <div>
                             <input type="submit" value="Registrar" />
                         </div>
-
+                        <Link to="/">Já tenho cadastro</Link>
                     </Form>
                 </ContentAcesso >
             </ContentCadastro>
