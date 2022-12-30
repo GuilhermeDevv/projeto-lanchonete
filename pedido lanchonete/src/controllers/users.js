@@ -1,21 +1,27 @@
 const bcrypt = require("bcryptjs");
-
+const ModelCriarUser = require("../models/criarUser");
 async function cadastrarUsuario(req, res) {
     try {
-        // validar input novamente@
+        // Validar input novamente por segurança!
         const { nome, email, senha } = req.body;
         if (!nome || !email || !senha) {
             return res.status(400).json({ error: "Dados inválidos" });
         }
 
-        // Criptografia da senha do usuario
+        // Verificar se o email está em uso
+        const emailEstaEmUso = await ModelCriarUser.findOne({ email });
+        if (emailEstaEmUso) {
+            return res.status(400).json({ error: "Email já está em uso" });
+        }
+
+        // Criptografando senha
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(senha, salt);
 
-        // Criar usuario
+        // Criar user
         const novoUsuario = await createUser({ nome, email, senha: hash });
 
-        // Return response
+        //Resposta
         return res.json({ nome, email });
     } catch (error) {
         console.error(error);
@@ -24,7 +30,6 @@ async function cadastrarUsuario(req, res) {
 }
 
 async function createUser(user) {
-    const ModelCriarUser = require("../models/criarUser");
     const novoUsuario = new ModelCriarUser(user);
     await novoUsuario.save();
     return novoUsuario;
