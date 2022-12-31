@@ -1,8 +1,12 @@
+const { Router } = require("express");
 const express = require("express");
-const { cadastrarUsuario } = require("../../controllers/users");
+const { verificarAcesso, cadastrarUsuario, pegarDados } = require("../../controllers/users")
 const route = require("express").Router();
 
+
+route.get("/user", pegarDados)
 route.post("/criarUsuario", cadastrarUsuario)
+route.post("/inicio", verificarAcesso)
 
 
 
