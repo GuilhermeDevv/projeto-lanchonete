@@ -29,16 +29,16 @@ export function C_login() {
         axios.defaults.baseURL = API_URL;
         axios.post('/inicio', { email, senha }, { headers: { 'Content-Type': 'application/json' } })
             .then(response => {
-                
-                //CASO O STATUS FOR 200 ELE AVANÇA E ENVIAR EMAIL PARA HOME
+                //CASO O STATUS FOR 200 ELE AVANÇA E ENVIAR EMAIL PARA HOME PARA TRATAR DOS DADOS
                 if (response.status == 200) {
-                    navigate("/home", { state: { email } });
+                    if (!response.data.success) {
+                        alert("senha incorreta")
+                    } else {
+                        navigate("/home", { state: { email } });
+                    }
                 }
-            })
-            .catch(err => {
-                // Exibe uma mensagem de erro ao usuário
-                alert("Ocorreu um erro ao tentar fazer login: " + err.message);
-            });
+            }).catch((err) => { console.log(err) })
+
     }
 
 
