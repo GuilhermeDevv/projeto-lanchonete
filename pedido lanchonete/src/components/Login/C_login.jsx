@@ -1,10 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ContainerLogin, ContentAcesso, ContentImg, ContentLogin, Form } from './style';
-import {TextoPage} from "../Texto/TextoPage" 
+import { TextoPage } from "../Texto/TextoPage"
 import { MdEmail, MdVpnKey } from "react-icons/md"
 import imgLogin from "../../assets/imgLogin.png"
 
@@ -14,18 +15,43 @@ const schema = yup.object({
 }).required()
 
 export function C_login() {
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
-
     const estilosIcon = { position: 'absolute', margin: "13px 0px 0px 5px", fontSize: "11px" }
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+    const API_URL = "http://127.0.0.1:8080";
+
+    const navigate = useNavigate();
+    function temAcesso({ email, senha }) {
+        //VERIFICAR NOVAMENTE INPUT 
+        if (!email || !senha) {
+            throw new Error("Email e senha são obrigatórios");
+        }
+
+        axios.defaults.baseURL = API_URL;
+        axios.post('/inicio', { email, senha }, { headers: { 'Content-Type': 'application/json' } })
+            .then(response => {
+                
+                //CASO O STATUS FOR 200 ELE AVANÇA E ENVIAR EMAIL PARA HOME
+                if (response.status == 200) {
+                    navigate("/home", { state: { email } });
+                }
+            })
+            .catch(err => {
+                // Exibe uma mensagem de erro ao usuário
+                alert("Ocorreu um erro ao tentar fazer login: " + err.message);
+            });
+    }
+
+
 
     return (
+
         <ContainerLogin>
             <ContentLogin >
                 <ContentImg>
                     <img src={imgLogin} alt="boneco" />
                 </ContentImg>
                 <ContentAcesso>
-                    <Form onSubmit={handleSubmit(() => { console.log('teste') })}>
+                    <Form onSubmit={handleSubmit(temAcesso)}>
                         <TextoPage>Login</TextoPage>
                         <div>
                             {/* icone do input */}
