@@ -32,10 +32,14 @@ async function verificarAcesso(req, res) {
     const usuario = await ModelCriarUser.findOne({ email });
     if (usuario) {
         // Usuário encontrado
-        return res.json({ success: true, message: "Usuário encontrado" });
+        if (senha == usuario.senha) {
+            return res.json({ success: true, message: "Usuário encontrado" });
+        }
+        return res.json({ success: false, message: "Senha incorreta" });
+
     } else {
         // Usuário não encontrado
-        return res.json({ success: false, message: "Usuário não encontrado" });
+        return res.status(403).json({ success: false, message: "Usuário não encontrado" });
     }
 }
 
