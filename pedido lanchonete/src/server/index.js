@@ -4,9 +4,9 @@ const app = express()
 const route = require("./routes")
 const db = require("../database")
 
+app.use(express.json())
 app.use(cors())
 db.connect()
-app.use(express.json())
 app.use("/", route)
 
 
