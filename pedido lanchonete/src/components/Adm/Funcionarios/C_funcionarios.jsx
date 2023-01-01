@@ -48,7 +48,9 @@ export function C_funcionario() {
                         type="text"
                         placeholder="Pesquisar usuários..."
                         value={procuraPorUser}
-                        onChange={event => setProcuraPorUser(event.target.value)}
+
+                        onChange={event => setProcuraPorUser(event.target.value )}
+
                     />
                 </div>
                 <Nav>
