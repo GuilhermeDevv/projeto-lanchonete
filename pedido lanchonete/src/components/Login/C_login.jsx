@@ -17,11 +17,12 @@ const schema = yup.object({
 export function C_login() {
     const estilosIcon = { position: 'absolute', margin: "13px 0px 0px 5px", fontSize: "11px" }
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
-    const API_URL = "http://127.0.0.1:8080";
+    const API_URL = "http://192.168.1.2:8080";
 
     const navigate = useNavigate();
     function temAcesso({ email, senha }) {
-        //VERIFICAR NOVAMENTE INPUT 
+
+        // VERIFICAR NOVAMENTE INPUT
         if (!email || !senha) {
             throw new Error("Email e senha são obrigatórios");
         }
@@ -29,15 +30,27 @@ export function C_login() {
         axios.defaults.baseURL = API_URL;
         axios.post('/inicio', { email, senha }, { headers: { 'Content-Type': 'application/json' } })
             .then(response => {
-                //CASO O STATUS FOR 200 ELE AVANÇA E ENVIAR EMAIL PARA HOME PARA TRATAR DOS DADOS
-                if (response.status == 200) {
-                    if (!response.data.success) {
-                        alert("senha incorreta")
-                    } else {
-                        navigate("/home", { state: { email } });
-                    }
+
+                // verificar se a req deu certo
+                if (response.status === 200 && response.data.success) {
+                    // Navega até a pagina Home
+                    navigate("/home", { state: { email } });
+                } else {
+                    alert("Senha incorreta");
                 }
-            }).catch((err) => { console.log(err) })
+            })
+            .catch(err => {
+                // plotar no console o erro
+                console.error(err);
+            });
+
+
+
+
+
+
+
+
 
     }
 

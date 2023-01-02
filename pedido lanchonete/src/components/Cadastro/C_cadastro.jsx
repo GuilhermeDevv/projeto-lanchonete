@@ -6,7 +6,7 @@ import * as yup from "yup"
 import { Link } from 'react-router-dom'
 import { ContainerCadastro, ContentAcesso, ContentImg, ContentCadastro, Form } from './style';
 import { TextoPage } from "../Texto/TextoPage"
-import { MdEmail, MdVpnKey,MdSupervisedUserCircle } from "react-icons/md"
+import { MdEmail, MdVpnKey, MdSupervisedUserCircle } from "react-icons/md"
 import imgLogin from "../../assets/imgLogin.png"
 
 
@@ -21,7 +21,7 @@ const schema = yup.object({
 }).required()
 
 function criarUsuario({ nome, senha, email }) {
-    axios.defaults.baseURL = "http://127.0.0.1:8080"
+    axios.defaults.baseURL = "http://192.168.1.2:8080"
     axios.post("/criarUsuario", {
         nome,
         senha,

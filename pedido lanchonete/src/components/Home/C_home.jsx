@@ -11,14 +11,16 @@ export function C_home(props) {
             navigate("/")
         } else {
             const { email } = location.state
-            axios.get("/user", { params: { email } }).then(response => { console.log(response) })
+            axios.get("/user", { params: { email }, headers: { 'Content-Type': 'application/json' } }).then(response => { console.log(response) })
+
+
         }
 
     }, [])
     return (
         <div>
             <h1>
-
+                {state.erro && state.erro}
             </h1>
         </div>
     );
