@@ -103,7 +103,6 @@ async function recuperarConta(req, res) {
                 template_id: 'tamplete',
                 user_id: apiKey,
                 accessToken: "2ZNA1D4ZimRYqQ9KSraaV", 
-                
                 template_params: {
                     destinatario: email,
                     nome: usuario[0].nome,
