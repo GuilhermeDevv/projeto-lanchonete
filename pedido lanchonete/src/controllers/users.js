@@ -30,16 +30,15 @@ async function verificarAcesso(req, res) {
     if (!email || !senha) {
         throw new Error("Email e senha são obrigatórios");
     }
-    console.log('chamou a requisição')
-
     const usuario = await ModelCriarUser.findOne({ email });
     if (usuario) {
+        //verificar se a senha digitada da match com a criptografada
+        const match = await bcrypt.compare(senha, usuario.senha)
         // Usuário encontrado
-        if (senha == usuario.senha) {
+        if (match) {
             return res.json({ success: true, message: "Usuário encontrado" });
         }
         return res.json({ success: false, message: "Senha incorreta" });
-
     } else {
         // Usuário não encontrado
         return res.status(403).json({ success: false, message: "Usuário não encontrado" });
@@ -82,7 +81,6 @@ async function cadastrarUsuario(req, res) {
     }
 }
 
-
 async function recuperarConta(req, res) {
     const { email } = req.body
     const date = new Date();
@@ -90,10 +88,10 @@ async function recuperarConta(req, res) {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     const horaDaChamada = `${hours}:${minutes}:${seconds}`
-    const stringAleatoria = await CryptoJS.lib.WordArray.random(30).toString();
+    const urlRandom = await CryptoJS.lib.WordArray.random(30).toString();
     const usuario = await ModelCriarUser.find({ email })
     if (usuario) {
-        ModelCriarUser.updateOne({ email }, { $set: { temp: [stringAleatoria, horaDaChamada] } })
+        ModelCriarUser.updateOne({ email }, { $set: { temp: [urlRandom, horaDaChamada] } })
             .then(() => {
                 const apiKey = 'Uipg6U1WQHVEuBTWs';
                 const data = {
