@@ -1,5 +1,7 @@
+const axios = require("axios")
+const CryptoJS = require("crypto-js")
 const bcrypt = require("bcryptjs");
-
+const { model } = require("mongoose");
 const ModelCriarUser = require("../models/criarUser");
 
 function pegarDados(req, res) {
@@ -28,6 +30,7 @@ async function verificarAcesso(req, res) {
     if (!email || !senha) {
         throw new Error("Email e senha são obrigatórios");
     }
+    console.log('chamou a requisição')
 
     const usuario = await ModelCriarUser.findOne({ email });
     if (usuario) {
@@ -48,6 +51,7 @@ async function cadastrarUsuario(req, res) {
     try {
         // Validar input novamente por segurança!
         const { nome, email, senha } = req.body;
+        const most = {}
         if (!nome || !email || !senha) {
             return res.status(400).json({ error: "Dados inválidos" });
         }
@@ -63,8 +67,8 @@ async function cadastrarUsuario(req, res) {
         const hash = bcrypt.hashSync(senha, salt);
 
         // Criar user
-        const novoUsuario = await createUser({ nome, email, senha: hash });
-
+        const novoUsuario = await createUser({ nome, email, senha: hash, temp: [""] });
+        console.log(novoUsuario)
         //Resposta
         return res.json({ nome, email });
     } catch (error) {
@@ -78,4 +82,73 @@ async function cadastrarUsuario(req, res) {
     }
 }
 
-module.exports = { verificarAcesso, cadastrarUsuario, pegarDados }
+
+async function recuperarConta(req, res) {
+    const { email } = req.body
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const horaDaChamada = `${hours}:${minutes}:${seconds}`
+    const stringAleatoria = await CryptoJS.lib.WordArray.random(30).toString();
+    const usuario = await ModelCriarUser.find({ email })
+    ModelCriarUser.updateOne({ email }, { $set: { temp: [stringAleatoria, horaDaChamada] } })
+
+
+
+        .then(() => {
+            const apiKey = 'Uipg6U1WQHVEuBTWs';
+            const data = {
+                service_id: 'gmail',
+                template_id: 'tamplete',
+                user_id: apiKey,
+                accessToken: "2ZNA1D4ZimRYqQ9KSraaV",
+                template_params: {
+                    destinatario: email,
+                    nome: usuario[0].nome,
+                    message: 'Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos.',
+                }
+            };
+            axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });
+
+            return res.json({ status: "okay" })
+        })
+
+
+
+
+        .catch(err => { return res.json("erroaodoad" + err) })
+
+
+
+
+
+
+    // console.log(usuario[0].nome)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+module.exports = { verificarAcesso, cadastrarUsuario, pegarDados, recuperarConta }
