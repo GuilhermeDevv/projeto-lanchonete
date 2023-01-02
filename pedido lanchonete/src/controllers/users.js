@@ -102,7 +102,7 @@ async function recuperarConta(req, res) {
                 service_id: 'gmail',
                 template_id: 'tamplete',
                 user_id: apiKey,
-                accessToken: "2ZNA1D4ZimRYqQ9KSraaV", 
+                accessToken: "2ZNA1D4ZimRYqQ9KSraaV",
                 template_params: {
                     destinatario: email,
                     nome: usuario[0].nome,
@@ -110,18 +110,12 @@ async function recuperarConta(req, res) {
                 }
             };
             axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
-                console.log(response);
+                return res.status(200).json({ message: "sucesso" })
             }).catch((error) => {
-                console.log(error);
+                return res.status(200).json({ message: "erro", erro: error })
             });
 
-            return res.json({ status: "okay" })
-        })
-
-
-
-
-        .catch(err => { return res.json("erroaodoad" + err) })
+        }).catch(err => { return res.json("erroaodoad" + err) })
 
 
 
