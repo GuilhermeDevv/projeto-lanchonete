@@ -92,57 +92,28 @@ async function recuperarConta(req, res) {
     const horaDaChamada = `${hours}:${minutes}:${seconds}`
     const stringAleatoria = await CryptoJS.lib.WordArray.random(30).toString();
     const usuario = await ModelCriarUser.find({ email })
-    ModelCriarUser.updateOne({ email }, { $set: { temp: [stringAleatoria, horaDaChamada] } })
-
-
-
-        .then(() => {
-            const apiKey = 'Uipg6U1WQHVEuBTWs';
-            const data = {
-                service_id: 'gmail',
-                template_id: 'tamplete',
-                user_id: apiKey,
-                accessToken: "2ZNA1D4ZimRYqQ9KSraaV",
-                template_params: {
-                    destinatario: email,
-                    nome: usuario[0].nome,
-                    message: 'Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos.',
-                }
-            };
-            axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
-                return res.status(200).json({ message: "sucesso" })
-            }).catch((error) => {
-                return res.status(200).json({ message: "erro", erro: error })
-            });
-
-        }).catch(err => { return res.json("erroaodoad" + err) })
-
-
-
-
-
-
-    // console.log(usuario[0].nome)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if (usuario) {
+        ModelCriarUser.updateOne({ email }, { $set: { temp: [stringAleatoria, horaDaChamada] } })
+            .then(() => {
+                const apiKey = 'Uipg6U1WQHVEuBTWs';
+                const data = {
+                    service_id: 'gmail',
+                    template_id: 'tamplete',
+                    user_id: apiKey,
+                    accessToken: "2ZNA1D4ZimRYqQ9KSraaV",
+                    template_params: {
+                        destinatario: email,
+                        nome: usuario[0].nome,
+                        message: 'Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos.',
+                    }
+                };
+                axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
+                    return res.status(200).json({ message: "E-mail enviado", success: true })
+                }).catch((error) => {
+                    return res.status(500).json({ message: "Problema no servidor", erro: error, success: false })
+                });
+            }).catch(err => { return res.json("erroaodoad" + err) })
+    }
+    return res.status(404).json({ message: "usuário não localizado.", success: false })
 }
 module.exports = { verificarAcesso, cadastrarUsuario, pegarDados, recuperarConta }
