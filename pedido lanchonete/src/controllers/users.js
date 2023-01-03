@@ -50,7 +50,6 @@ async function cadastrarUsuario(req, res) {
     try {
         // Validar input novamente por segurança!
         const { nome, email, senha } = req.body;
-        const most = {}
         if (!nome || !email || !senha) {
             return res.status(400).json({ error: "Dados inválidos" });
         }
@@ -90,8 +89,8 @@ async function recuperarConta(req, res) {
     const horaDaChamada = `${hours}:${minutes}:${seconds}`
     const urlRandom = await CryptoJS.lib.WordArray.random(30).toString();
     const usuario = await ModelCriarUser.find({ email })
-    if (usuario) {
-        ModelCriarUser.updateOne({ email }, { $set: { temp: [urlRandom, horaDaChamada] } })
+    if (usuario.length != 0) {
+        await ModelCriarUser.updateOne({ email }, { $set: { temp: [urlRandom, horaDaChamada] } })
             .then(() => {
                 const apiKey = 'Uipg6U1WQHVEuBTWs';
                 const data = {
@@ -105,14 +104,15 @@ async function recuperarConta(req, res) {
                         message: `Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos. http://localhost:5173/novaSenha/${urlRandom}`,
                     }
                 };
-                axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
+                axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then(() => {
                     return res.status(200).json({ message: "E-mail enviado", success: true })
                 }).catch((error) => {
                     return res.status(500).json({ message: "Problema no servidor", erro: error, success: false })
                 });
-            }).catch(err => { return res.json("erro" + err) })
+            }).catch(err => { return res.json({ erro: err }) })
+    } else {
+        return res.status(404).json({ message: "usuário não localizado.", success: false })
     }
-    return res.status(404).json({ message: "usuário não localizado.", success: false })
 }
 
 async function verificarUrl(req, res) {
@@ -144,14 +144,15 @@ async function verificarUrl(req, res) {
         const diferencaMin = (horaAtual - horaArmazenada) / 1000 / 60;
         const minArredondado = Math.floor(diferencaMin);
 
+        // Esvazia os arquivos temporários
+        await ModelCriarUser.updateOne({ email }, { $set: { temp: [] } });
         // Verifica se já se passaram 5 minutos ou mais desde o armazenamento da hora.
         if (minArredondado >= 5) {
-            // Esvazia os arquivos temporários pois já estão expirados.
-            await ModelCriarUser.updateOne({ email }, { $set: { temp: [] } });
-
             return res.status(422).json({ status: "Erro", message: "Link expirou.", success: false });
         }
-
+        const salt = bcrypt.genSaltSync(10);
+        const novaSenha = bcrypt.hashSync(senha, salt);
+        await ModelCriarUser.updateOne({ email }, { $set: { senha: novaSenha } });
         return res.json({ status: "Concluido!", message: "Tudo certo!", success: true });
     }
 
