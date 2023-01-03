@@ -7,6 +7,8 @@ import * as yup from "yup"
 import { TextoPage } from "../Texto/TextoPage"
 import { MdVpnKey } from "react-icons/md"
 import axios from "axios"
+import { useParams } from 'react-router-dom';
+
 
 const schema = yup.object({
     senha: yup.string().required("campo vazio."),
@@ -18,6 +20,12 @@ export function C_alterarSenha(props) {
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
     const API_URL = "http://192.168.1.2:8080";
 
+    const { url } = useParams()
+
+    function req({ senha }) {
+        axios.defaults.baseURL = API_URL
+        axios.post("/novaSenha", { url, senha }).then(res => { console.log(res) }).catch(err => { console.log(err.response.data) })
+    }
     return (
         <ContainerSenha>
             <ContentSenha>
@@ -25,7 +33,7 @@ export function C_alterarSenha(props) {
                     <img src={imgLogin} alt="boneco" />
                 </ContentImg>
                 <ContentAcesso>
-                    <Form onSubmit={handleSubmit()}>
+                    <Form onSubmit={handleSubmit(req)}>
                         <TextoPage>Nova senha</TextoPage>
                         <div>
                             {/* icone do input */}

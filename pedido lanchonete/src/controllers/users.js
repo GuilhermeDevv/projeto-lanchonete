@@ -102,7 +102,7 @@ async function recuperarConta(req, res) {
                     template_params: {
                         destinatario: email,
                         nome: usuario[0].nome,
-                        message: 'Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos.',
+                        message: `Aqui está o link para você recuperar sua conta, ele tem prazo de 5 minutos. http://localhost:5173/novaSenha/${urlRandom}`,
                     }
                 };
                 axios.post('https://api.emailjs.com/api/v1.0/email/send', data).then((response) => {
@@ -110,8 +110,51 @@ async function recuperarConta(req, res) {
                 }).catch((error) => {
                     return res.status(500).json({ message: "Problema no servidor", erro: error, success: false })
                 });
-            }).catch(err => { return res.json("erroaodoad" + err) })
+            }).catch(err => { return res.json("erro" + err) })
     }
     return res.status(404).json({ message: "usuário não localizado.", success: false })
 }
-module.exports = { verificarAcesso, cadastrarUsuario, pegarDados, recuperarConta }
+
+async function verificarUrl(req, res) {
+    const { senha, url } = req.body;
+
+    // Verifica se a senha e a URL foram enviadas no corpo da requisição.
+    if (!senha || !url) {
+        return res.json({ status: "erro", success: false, message: "Você não tem acesso." });
+    }
+
+    // Procura pelo documento com o campo "temp" igual a `url`.
+    const dados = await ModelCriarUser.find({ temp: url });
+
+    if (dados.length > 0) {
+        const { temp, email } = dados[0];
+
+        // Obtém a hora atual em milissegundos.
+        const horaAtual = new Date().getTime();
+
+        // Obtém a hora armazenada em milissegundos.
+        const horaBanco = temp[1];
+        const dataArmazenada = new Date();
+        dataArmazenada.setHours(horaBanco.split(":")[0]);
+        dataArmazenada.setMinutes(horaBanco.split(":")[1]);
+        dataArmazenada.setSeconds(horaBanco.split(":")[2]);
+        const horaArmazenada = dataArmazenada.getTime();
+
+        // Calcula a diferença em minutos entre as duas horas.
+        const diferencaMin = (horaAtual - horaArmazenada) / 1000 / 60;
+        const minArredondado = Math.floor(diferencaMin);
+
+        // Verifica se já se passaram 5 minutos ou mais desde o armazenamento da hora.
+        if (minArredondado >= 5) {
+            // Esvazia os arquivos temporários pois já estão expirados.
+            await ModelCriarUser.updateOne({ email }, { $set: { temp: [] } });
+
+            return res.status(422).json({ status: "Erro", message: "Link expirou.", success: false });
+        }
+
+        return res.json({ status: "Concluido!", message: "Tudo certo!", success: true });
+    }
+
+    return res.status(404).json({ status: "erro", success: false, message: "Você não tem acesso." });
+}
+module.exports = { verificarAcesso, cadastrarUsuario, pegarDados, recuperarConta, verificarUrl }

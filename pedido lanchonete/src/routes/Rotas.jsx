@@ -14,7 +14,7 @@ export function Rotas() {
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/home" element={<Home />} />
             <Route path='/recuperar' element={<Recuperar />} />
-            <Route path='/novaSenha' element={<AlterarSenha />} />
+            <Route path='/novaSenha/:url' element={<AlterarSenha />} />
         </Routes>
     );
 }
