@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { Login } from "../pages/Login/Login"
 import { Cadastro } from "../pages/Cadastro/Cadastro"
 import { Home } from "../pages/Home/Home"
@@ -14,6 +14,7 @@ export function Rotas() {
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/home" element={<Home />} />
             <Route path='/recuperar' element={<Recuperar />} />
+            <Route path='/novaSenha' element={<Navigate to="/" />} />
             <Route path='/novaSenha/:url' element={<AlterarSenha />} />
         </Routes>
     );
