@@ -20,8 +20,8 @@ export function C_alterarSenha(props) {
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
     const API_URL = "http://192.168.1.2:8080";
 
-    const { url } = useParams()
     const navigate = useNavigate()
+    const { url } = useParams()
 
     function req({ senha }) {
         axios.defaults.baseURL = API_URL
