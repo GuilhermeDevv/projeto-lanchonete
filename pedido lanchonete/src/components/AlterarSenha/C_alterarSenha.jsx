@@ -7,7 +7,7 @@ import * as yup from "yup"
 import { TextoPage } from "../Texto/TextoPage"
 import { MdVpnKey } from "react-icons/md"
 import axios from "axios"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const schema = yup.object({
@@ -21,10 +21,17 @@ export function C_alterarSenha(props) {
     const API_URL = "http://192.168.1.2:8080";
 
     const { url } = useParams()
+    const navigate = useNavigate()
 
     function req({ senha }) {
         axios.defaults.baseURL = API_URL
-        axios.post("/novaSenha", { url, senha }).then(res => { console.log(res) }).catch(err => { console.log(err.response.data) })
+        axios.post("/novaSenha", { url, senha }, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => {
+            navigate("/")
+        }).catch(err => { console.error(err) })
     }
     return (
         <ContainerSenha>
