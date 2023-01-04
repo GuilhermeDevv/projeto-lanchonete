@@ -1,47 +1,81 @@
 import React, { useState } from 'react';
-import { ContainerAdm, ContentAdm, NomeSite, Header, User, OptionUser } from "./style"
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
+import { ContainerAdm, ContentAdm, MenuSite, Header, User, OptionUser, Logo, IconOpenAndClose } from "./style"
+import { IoIosArrowDown, IoIosArrowUp, IoIosHome, IoMdAddCircle, IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { HiUser } from "react-icons/hi"
+import { BsCashCoin, BsFillCartFill, BsTable } from "react-icons/bs"
+import { FcSalesPerformance } from "react-icons/fc"
+import logo from "../../assets/logo.png"
+
 
 export function C_adm() {
 
 
     const [icon, setIcon] = useState(true)
-
-
+    const [iconLeft, setIconLeft] = useState(false)
+    const styleIconLeft = { fontSize: "25px", color: "#606875", marginRight: "7px" }
+    const styleIconOpenAndClose = { fontSize: "25px", color: "white", background: '#2fc4ba', borderRadius: "50%" }
     return (
+
         <ContainerAdm>
             <ContentAdm>
+                <MenuSite animate={iconLeft ? "open" : "close"} >
+                    <Logo src={logo} />
+                    <div>
+                        <IconOpenAndClose onClick={() => { setIconLeft(!iconLeft) }}>
+                            {!iconLeft ? <IoIosArrowForward style={styleIconOpenAndClose} /> : <IoIosArrowBack style={styleIconOpenAndClose} />}
+                        </IconOpenAndClose>
+                        <ul>
+                            <li>
+                                <IoIosHome style={styleIconLeft} />
+                                <span>INICIO</span >
+                            </li>
+                            <li>
+                                <IoMdAddCircle style={styleIconLeft} />
+                                <span>CAD. FUNCIONÁRIO</span >
+                            </li>
+                            <li>
+                                <HiUser style={styleIconLeft} />
+                                <span>CLIENTES</span >
+                            </li>
+                            <li>
+                                <BsCashCoin style={styleIconLeft} />
+                                <span>FATURAMENTO</span>
+                            </li>
+                            <li>
+                                <BsFillCartFill style={styleIconLeft} />
+                                <span>PRODUTOS</span>
+                            </li>
+                            <li>
+                                <FcSalesPerformance style={styleIconLeft} />
+                                <span>VENDAS</span>
+                            </li>
+                            <li>
+                                <BsTable style={styleIconLeft} />
+                                <span>PEDIDOS</span>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </MenuSite>
+
                 <Header>
-                    <NomeSite>
-                        Lanche Feliz
-                    </NomeSite>
-                    <User onClick={() => { setIcon(!icon) }}>
-                        <span>
+                    <User >
+                        <span onClick={() => { setIcon(!icon) }}>
                             Guilherme {icon ? <IoIosArrowDown style={{ verticalAlign: "middle" }} /> : <IoIosArrowUp style={{ verticalAlign: "middle" }} />}
                         </span>
                         <OptionUser animate={icon ? "fadeInUp" : "fadeInDown"} >
                             <ul >
                                 <li >
-                                    <span >Pedidos</span>
+
+                                    <span>Configuração</span>
                                 </li>
                                 <li >
 
-                                    <span >Financias</span>
-                                </li>
-                                <li >
-
-                                    <span >Contas</span>
-                                </li>
-                                <li >
-
-                                    <span >Sair</span>
+                                    <span>Sair</span>
                                 </li>
                             </ul>
-
                         </OptionUser >
-
-
-
                     </User>
                 </Header>
 

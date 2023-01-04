@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const ContainerAdm = styled.div`
 background-color: #eef1f6;
@@ -19,36 +19,81 @@ width: 100%;
 height: 6rem;
 position: fixed;
 `
-export const NomeSite = styled.h1`
-display: inline;
-background-color: #20c2bd;
-max-width: 160px;
+export const MenuSite = styled.section`
+position: fixed;
+z-index: 1;
+display: flex;
+flex-direction: column;
+background-color: #273549;
+max-width: 140px;
 width: 100%;
-height: 6rem;
-color: white;
-font-size: clamp(1.5rem,2rem,4.2rem);
-text-align: center;
-padding-top: 15px;
+max-height:100vh;
+height: 100%;
+align-items: center;
+overflow: hidden;
 
+@media (max-width:670px){
+  animation-name:  ${({ animate }) => animate};
+  animation-duration: 0.4s;
+  animation-fill-mode: both;
+  
+}
+@keyframes close {
+from {
+  max-width: 140px;
+  width: 100%;
+}
+to {
+  max-width: 40px;
+  width: 100%;
+}
+}
+
+
+@keyframes open {
+  from {
+    max-width: 40px;
+    width: 100%;
+  }
+  to {
+    max-width: 140px;
+    width: 100%;
+  }
+}
+& div  {
+    width: 100%;
+    padding-left: 8px;
+    overflow: hidden;
+   
+   
+    & ul li{
+      position: relative;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      position: relative;
+      color:white;
+      & span{
+        position: absolute;
+        top: 8px;
+      }
+    }
+    
+  }
 
 `
 export const User = styled.div`
 
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: end;
-cursor: pointer;
-    & span{
-        color: #aab8c2;
-        margin-right: 1rem;
-        font-size: 16px;
-        text-transform: capitalize;
-        
-        
-        
-       
-    }
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  cursor: pointer;
+      & span{
+          color: #aab8c2;
+          margin-right: 1rem;
+          font-size: 16px;
+          text-transform: capitalize;
+        }
 
 `
 export const OptionUser = styled.section`
@@ -123,6 +168,21 @@ animation-fill-mode: both;
     transform: translate3d(0, 20px, 0);
     opacity: 1;
   }
+}
+
+`
+export const Logo = styled.img`
+background-color: white;
+border: solid 2px gray;
+
+`
+export const IconOpenAndClose = styled.div`
+display: none;
+ @media (max-width:670px){
+
+  display: flex;
+  justify-content: end;
+  position: relative;
 }
 
 `
