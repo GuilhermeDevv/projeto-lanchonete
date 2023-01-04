@@ -26,31 +26,31 @@ export function C_adm() {
                         </IconOpenAndClose>
                         <ul>
                             <li>
-                                <IoIosHome style={styleIconLeft} />
+                                <IoIosHome style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>INICIO</span >
                             </li>
                             <li>
-                                <IoMdAddCircle style={styleIconLeft} />
+                                <IoMdAddCircle style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>CAD. FUNCIONÁRIO</span >
                             </li>
                             <li>
-                                <HiUser style={styleIconLeft} />
+                                <HiUser style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>CLIENTES</span >
                             </li>
                             <li>
-                                <BsCashCoin style={styleIconLeft} />
+                                <BsCashCoin style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>FATURAMENTO</span>
                             </li>
                             <li>
-                                <BsFillCartFill style={styleIconLeft} />
+                                <BsFillCartFill style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>PRODUTOS</span>
                             </li>
                             <li>
-                                <FcSalesPerformance style={styleIconLeft} />
+                                <FcSalesPerformance style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>VENDAS</span>
                             </li>
                             <li>
-                                <BsTable style={styleIconLeft} />
+                                <BsTable style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
                                 <span>PEDIDOS</span>
                             </li>
                         </ul>
@@ -65,7 +65,7 @@ export function C_adm() {
                             Guilherme {icon ? <IoIosArrowDown style={{ verticalAlign: "middle" }} /> : <IoIosArrowUp style={{ verticalAlign: "middle" }} />}
                         </span>
                         <OptionUser animate={icon ? "fadeInUp" : "fadeInDown"} >
-                            <ul >
+                            <ul>
                                 <li >
 
                                     <span>Configuração</span>
