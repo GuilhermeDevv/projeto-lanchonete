@@ -26,31 +26,31 @@ export function C_adm() {
                         </IconOpenAndClose>
                         <ul>
                             <li>
-                                <IoIosHome style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <IoIosHome style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>INICIO</span >
                             </li>
                             <li>
-                                <IoMdAddCircle style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <IoMdAddCircle style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>CAD. FUNCIONÁRIO</span >
                             </li>
                             <li>
-                                <HiUser style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <HiUser style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>CLIENTES</span >
                             </li>
                             <li>
-                                <BsCashCoin style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <BsCashCoin style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>FATURAMENTO</span>
                             </li>
                             <li>
-                                <BsFillCartFill style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <BsFillCartFill style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>PRODUTOS</span>
                             </li>
                             <li>
-                                <FcSalesPerformance style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <FcSalesPerformance style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>VENDAS</span>
                             </li>
                             <li>
-                                <BsTable style={styleIconLeft} onClick={() => { setIconLeft(!iconLeft) }}/>
+                                <BsTable style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span>PEDIDOS</span>
                             </li>
                         </ul>
