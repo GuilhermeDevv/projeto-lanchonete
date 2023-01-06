@@ -1,22 +1,20 @@
 import styled, { keyframes } from "styled-components";
 
 export const ContainerAdm = styled.div`
-background-color: #eef1f6;
+
 width: 100%;
 height: 100%;
 min-height: 100vh;
 `
 export const ContentAdm = styled.div`
 width: 100%;
-
-
-
 `
 export const Header = styled.header`
 display: flex;
 background-color: white;
 width: 100%;
 height: 6rem;
+z-index:1;
 position: fixed;
 `
 export const MenuSite = styled.section`
@@ -73,13 +71,14 @@ to {
       position: relative;
       color:white;
       & span{
+        cursor: pointer;
         position: absolute;
         top: 8px;
       }
     }
     
   }
-
+.linkAtivo{color:#3d6def;}
 `
 export const User = styled.div`
 
@@ -101,13 +100,10 @@ position: absolute;
 top: 60px;
 min-width: 180px;
 min-height: 220px;
-display: block;
 opacity: 0;
 animation-name:  ${({ animate }) => animate};
 animation-duration: 0.4s;
 animation-fill-mode: both;
-
-
 
     & ul {
     position: relative;
@@ -150,10 +146,13 @@ animation-fill-mode: both;
 }
 @keyframes fadeInUp {
   from {
+
     transform: translate3d(0, 30px, 0);
     opacity: 1;
+    
   }
   to {
+   
     transform: translate3d(0, 0, 0);
     opacity: 0;
   }
@@ -161,17 +160,20 @@ animation-fill-mode: both;
 
 @keyframes fadeInDown {
   from {
+  
     transform: translate3d(0, 0, 0);
     opacity: 0;
   }
   to {
-    transform: translate3d(0, 20px, 0);
+    
+    transform: translate3d(0, 30px, 0);
     opacity: 1;
   }
 }
 
 `
 export const Logo = styled.img`
+
 background-color: white;
 border: solid 2px gray;
 
@@ -184,6 +186,20 @@ display: none;
   justify-content: end;
   position: relative;
 }
+
+`
+
+export const MainPage = styled.main`
+float: right;
+width: calc(100% - 140px);
+@media (max-width:670px){
+  width: calc(100% - 40px);
+}
+min-height: calc(100vh - 60px);
+position: relative;
+top: 60px;
+
+
 
 `
 
