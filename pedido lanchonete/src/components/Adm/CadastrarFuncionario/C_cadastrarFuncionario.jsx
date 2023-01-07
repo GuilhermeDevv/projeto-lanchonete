@@ -7,8 +7,8 @@ import * as yup from "yup";
 const schema = yup.object({
     nome: yup.string().required("Campo vazio."),
     sexo: yup.string().required('Selecione um gênero.'),
-    cpf: yup.string().max(11, 'Algo está errado.').required("Campo vazio."),
-    idade: yup.number().min(0, "Idade incorreta.").required('Digite sua idade.'),
+    cpf: yup.string().max(11, 'Algo de errado.').required("Campo vazio."),
+    idade: yup.number("teste").min(0, "Idade incorreta.").required('Digite sua idade.'),
     cargo: yup.string().required("Selecione o cargo.")
 }).required()
 
@@ -16,38 +16,25 @@ export function C_cadastrarFuncionario() {
 
     const { register, formState: { errors }, handleSubmit } = useForm({ resolver: yupResolver(schema) })
     const [radio, setRadio] = useState('');
-    const inputRef = useRef(null);
-    useEffect(() => {
-        const input = inputRef.current;
 
-        function handleInput(event) {
-            const cpf = event.target.value;
-            const regex = /\d{3}\.\d{3}\.\d{3}-\d{2}/;
-
-            // Adiciona os caracteres "." e "-" no input
-            input.value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-
-        }
-
-        input.addEventListener('input', handleInput);
-
-        return () => {
-            input.removeEventListener('input', handleInput);
-        };
-    }, []);
-
-    function handleChange(event) {
-        setRadio(event.target.value);
+    function teste(dados) {
+        console.log(dados)
     }
+
 
     return (
         <ContainerFuncionario>
             <ContentFuncionario>
                 <h1>Cadastrar funcionários</h1>
-                <FormFuncionario>
+                <FormFuncionario onSubmit={handleSubmit(teste)}>
                     <div>
                         <label>Nome</label>
-                        <input type="text" placeholder='Nome completo' />
+                        <input
+                            type="text"
+                            placeholder='Nome completo'
+                            {...register("nome")}
+                        />
+                        <p>{errors.nome?.message}</p>
                     </div>
                     <label>Sexo</label>
                     <span>
@@ -55,33 +42,42 @@ export function C_cadastrarFuncionario() {
                         <input
                             type="radio"
                             value="F"
-                            checked={radio === 'F'}
-                            onChange={handleChange}
+                            {...register("sexo")}
                         />
                         <label>  Masculino</label>
                         <input
                             type="radio"
                             value="M"
-                            checked={radio === 'M'}
-                            onChange={handleChange}
+                            {...register("sexo")}
                         />
+                        <p>{errors.sexo?.message}</p>
                     </span>
                     <div>
                         <label>CPF</label>
-                        <input type="text" ref={inputRef} id="cpf" name="cpf" placeholder='000-000-000.00' />
+                        <input
+                            type="text"
+                            placeholder='000-000-000.00'
+                            {...register("cpf")}
+                        />
+                         <p>{errors.cpf?.message}</p>
                     </div>
                     <div>
                         <label>IDADE</label>
-                        <input type="text" />
+                        <input
+                            type="number"
+                            {...register("idade")}
+                        />
+                         <p>{errors.idade?.message}</p>
                     </div>
                     <div>
-                        <label htmlFor='cargo' >Cargo</label>
+                        <label htmlFor='cargo'{...register("cargo")} >Cargo</label>
                         <select name="cargo" id="cargo">
                             <option value="adm">Administrador</option>
                             <option value="caixa">Caixa</option>
                             <option value="garcom">Garçom</option>
                             <option value="entregador">Entregador</option>
                         </select>
+                        <p>{errors.cargo?.message}</p>
                     </div>
                     <div>
                         <input type="submit" value="Cadastrar" />
