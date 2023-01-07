@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import { ContainerFuncionario, ContentFuncionario, FormFuncionario } from './style';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object({
+    nome: yup.string().required("Campo vazio."),
+    sexo: yup.string().required('Selecione um gênero.'),
+    cpf: yup.string().max(11, 'Algo está errado.').required("Campo vazio."),
+    idade: yup.number().min(0, "Idade incorreta.").required('Digite sua idade.')
+}).required()
 
 export function C_cadastrarFuncionario() {
     const [radio, setRadio] = useState('');
