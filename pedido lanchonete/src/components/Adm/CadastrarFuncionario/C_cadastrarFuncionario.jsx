@@ -6,16 +6,22 @@ import * as yup from "yup";
 
 const schema = yup.object({
     nome: yup.string().required("Campo vazio."),
-    sexo: yup.string().required('Selecione um gênero.'),
-    cpf: yup.string().max(11, 'Algo de errado.').required("Campo vazio."),
-    idade: yup.number("teste").min(0, "Idade incorreta.").required('Digite sua idade.'),
+    sexo: yup.string().required("").oneOf(["F", "M"]),
+    cpf: yup.string().transform((value) => (isNaN(value) ? undefined : value)).max(11, 'Algo de errado.').required("Campo vazio."),
+    idade: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .required('Campo vazio.')
+        .positive('Idade incorreta.'),
     cargo: yup.string().required("Selecione o cargo.")
 }).required()
 
 export function C_cadastrarFuncionario() {
 
-    const { register, formState: { errors }, handleSubmit } = useForm({ resolver: yupResolver(schema) })
+    const { register, trigger, formState: { errors }, handleSubmit } = useForm({ mode: "onChange", resolver: yupResolver(schema) })
     const [radio, setRadio] = useState('');
+
+
 
     function teste(dados) {
         console.log(dados)
@@ -31,6 +37,7 @@ export function C_cadastrarFuncionario() {
                         <label>Nome</label>
                         <input
                             type="text"
+
                             placeholder='Nome completo'
                             {...register("nome")}
                         />
@@ -40,14 +47,18 @@ export function C_cadastrarFuncionario() {
                     <span>
                         <label>Feminino</label>
                         <input
+                            checked
                             type="radio"
-                            value="F"
+                            name='opcaoSexo'
+                            value="M"
                             {...register("sexo")}
                         />
                         <label>  Masculino</label>
                         <input
                             type="radio"
-                            value="M"
+
+                            name='opcaoSexo'
+                            value="F"
                             {...register("sexo")}
                         />
                         <p>{errors.sexo?.message}</p>
@@ -59,23 +70,23 @@ export function C_cadastrarFuncionario() {
                             placeholder='000-000-000.00'
                             {...register("cpf")}
                         />
-                         <p>{errors.cpf?.message}</p>
+                        <p>{errors.cpf?.message}</p>
                     </div>
                     <div>
                         <label>IDADE</label>
                         <input
-                            type="number"
+                            type="text"
                             {...register("idade")}
                         />
-                         <p>{errors.idade?.message}</p>
+                        <p>{errors.idade?.message}</p>
                     </div>
                     <div>
-                        <label htmlFor='cargo'{...register("cargo")} >Cargo</label>
-                        <select name="cargo" id="cargo">
-                            <option value="adm">Administrador</option>
-                            <option value="caixa">Caixa</option>
-                            <option value="garcom">Garçom</option>
-                            <option value="entregador">Entregador</option>
+                        <label htmlFor="cargo">Cargo</label>
+                        <select name="cargo" id="cargo" {...register("cargo")} >
+                            <option value="Administrador">Administrador</option>
+                            <option value="Caixa">Caixa</option>
+                            <option value="Garçom">Garçom</option>
+                            <option value="Entregador" >Entregador</option>
                         </select>
                         <p>{errors.cargo?.message}</p>
                     </div>
