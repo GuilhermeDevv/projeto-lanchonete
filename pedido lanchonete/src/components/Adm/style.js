@@ -101,6 +101,7 @@ top: 60px;
 min-width: 180px;
 min-height: 220px;
 opacity: 0;
+display:${({ display }) => display};
 animation-name:  ${({ animate }) => animate};
 animation-duration: 0.4s;
 animation-fill-mode: both;
@@ -146,27 +147,24 @@ animation-fill-mode: both;
 }
 @keyframes fadeInUp {
   from {
-
-    transform: translate3d(0, 30px, 0);
+   
     opacity: 1;
-    
   }
   to {
    
-    transform: translate3d(0, 0, 0);
     opacity: 0;
   }
 }
 
 @keyframes fadeInDown {
   from {
-  
+   
     transform: translate3d(0, 0, 0);
     opacity: 0;
   }
   to {
-    
-    transform: translate3d(0, 30px, 0);
+  
+    transform: translate3d(0, 20px, 0);
     opacity: 1;
   }
 }

@@ -25,7 +25,7 @@ export function C_adm() {
                         <span onClick={() => { setIcon(!icon) }}>
                             Guilherme {icon ? <IoIosArrowDown style={{ verticalAlign: "middle" }} /> : <IoIosArrowUp style={{ verticalAlign: "middle" }} />}
                         </span>
-                        <OptionUser animate={icon ? "fadeInUp" : "fadeInDown"} >
+                        <OptionUser animate={icon ? "fadeInUp" : "fadeInDown"} display={icon ? "none" : "block"}>
                             <ul>
                                 <li >
 
