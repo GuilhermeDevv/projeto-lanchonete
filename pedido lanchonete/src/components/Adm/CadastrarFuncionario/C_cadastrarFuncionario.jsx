@@ -8,10 +8,13 @@ const schema = yup.object({
     nome: yup.string().required("Campo vazio."),
     sexo: yup.string().required('Selecione um gênero.'),
     cpf: yup.string().max(11, 'Algo está errado.').required("Campo vazio."),
-    idade: yup.number().min(0, "Idade incorreta.").required('Digite sua idade.')
+    idade: yup.number().min(0, "Idade incorreta.").required('Digite sua idade.'),
+    cargo: yup.string().required("Selecione o cargo.")
 }).required()
 
 export function C_cadastrarFuncionario() {
+
+    const { register, formState: { errors }, handleSubmit } = useForm({ resolver: yupResolver(schema) })
     const [radio, setRadio] = useState('');
     const inputRef = useRef(null);
     useEffect(() => {
