@@ -19,7 +19,7 @@ const schema = yup.object({
 export function C_cadastrarFuncionario() {
 
     const { register, trigger, formState: { errors }, handleSubmit } = useForm({ mode: "onChange", resolver: yupResolver(schema) })
-    const [radio, setRadio] = useState('');
+    const [radio, setRadio] = useState('F');
 
 
 
@@ -47,18 +47,20 @@ export function C_cadastrarFuncionario() {
                     <span>
                         <label>Feminino</label>
                         <input
-                            checked
+                            checked={radio === 'F'}
+                            onClick ={(event) => setRadio(event.target.value)}
                             type="radio"
                             name='opcaoSexo'
-                            value="M"
+                            value="F"
                             {...register("sexo")}
                         />
                         <label>  Masculino</label>
                         <input
+                            checked={radio === 'M'}
+                            onClick ={(event) => setRadio(event.target.value)}
                             type="radio"
-
                             name='opcaoSexo'
-                            value="F"
+                            value="M"
                             {...register("sexo")}
                         />
                         <p>{errors.sexo?.message}</p>
