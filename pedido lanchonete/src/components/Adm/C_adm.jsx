@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ContainerAdm, ContentAdm, MenuSite, Header, User, OptionUser, Logo, IconOpenAndClose, MainPage } from "./style"
 import { IoIosArrowDown, IoIosArrowUp, IoIosHome, IoMdAddCircle, IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
 import { HiUser } from "react-icons/hi"
+import { GiCardboardBoxClosed } from "react-icons/gi"
 import { BsCashCoin, BsFillCartFill, BsTable } from "react-icons/bs"
 import { FcSalesPerformance } from "react-icons/fc"
 import logo from "../../assets/logo.png"
@@ -89,6 +90,12 @@ export function C_adm() {
                                 <span
                                     className={selectedLink === 'pedido' ? 'linkAtivo' : ''}
                                     onClick={() => setSelectedLink('pedido')} >PEDIDOS</span>
+                            </li>
+                            <li>
+                                <GiCardboardBoxClosed style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
+                                <span
+                                    className={selectedLink === 'estoque' ? 'linkAtivo' : ''}
+                                    onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
                             </li>
                         </ul>
 

@@ -32,6 +32,10 @@ export function DadosHome() {
             <ContentInfo backgroundColor="red">
                 <h1>avaliações: 0</h1>
             </ContentInfo>
+
+            <ContentInfo backgroundColor="black">
+                <h1>estoque: vazio</h1>
+            </ContentInfo>
         </ContainerInfo >
     );
 }
