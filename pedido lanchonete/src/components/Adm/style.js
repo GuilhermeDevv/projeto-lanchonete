@@ -188,8 +188,10 @@ display: none;
 `
 
 export const MainPage = styled.main`
-float: right;
 width: calc(100% - 140px);
+min-height:calc(100vh - 60px) ;
+height: 100%;
+float: right;
 @media (max-width:670px){
   width: calc(100% - 40px);
 }

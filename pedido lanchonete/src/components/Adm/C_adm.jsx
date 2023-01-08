@@ -6,6 +6,7 @@ import { BsCashCoin, BsFillCartFill, BsTable } from "react-icons/bs"
 import { FcSalesPerformance } from "react-icons/fc"
 import logo from "../../assets/logo.png"
 import { Outlet, Link } from 'react-router-dom';
+import { DadosHome } from "../DadosHome/DadosHome"
 
 
 export function C_adm() {
@@ -95,6 +96,7 @@ export function C_adm() {
 
                 </MenuSite>
                 <MainPage>
+                    {selectedLink == "/admin" ? <DadosHome /> : ""}
                     <Outlet />
                 </MainPage>
             </ContentAdm>
