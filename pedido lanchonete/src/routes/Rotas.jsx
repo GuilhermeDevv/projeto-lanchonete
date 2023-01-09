@@ -7,7 +7,7 @@ import { Recuperar } from "../pages/Recuperar/Recuperar"
 import { AlterarSenha } from "../pages/AlterarSenha/AlterarSenha"
 import { Adm } from "../pages/Adm/Adm"
 import { C_cadastrarFuncionario } from '../components/Adm/CadastrarFuncionario/C_cadastrarFuncionario';
-import { C_cliente } from '../components/Adm/Clientes/C_cliente';
+import { C_funcionario } from '../components/Adm/Funcionarios/C_Funcionarios';
 
 
 export function Rotas() {
@@ -21,7 +21,7 @@ export function Rotas() {
             <Route path='/novaSenha/:url' element={<AlterarSenha />} />
             <Route path='/admin' element={<Adm />} >
                 <Route path='cadastrarFuncionario' element={<C_cadastrarFuncionario />} />
-                <Route path='clientes' element={<C_cliente />} />
+                <Route path='funcionarios' element={<C_funcionario />} />
             </Route >
         </Routes>
     );
