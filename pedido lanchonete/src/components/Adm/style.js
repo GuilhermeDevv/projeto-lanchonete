@@ -188,6 +188,7 @@ display: none;
 `
 
 export const MainPage = styled.main`
+padding: 2rem 3rem;
 width: calc(100% - 140px);
 min-height:calc(100vh - 60px) ;
 height: 100%;
