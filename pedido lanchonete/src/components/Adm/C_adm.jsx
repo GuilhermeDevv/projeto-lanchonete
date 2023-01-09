@@ -65,8 +65,8 @@ export function C_adm() {
                             <li>
                                 <HiUser style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span
-                                    onClick={() => setSelectedLink('/admin/clientes')} >
-                                    <Link to="/admin/clientes" className={selectedLink === '/admin/clientes' ? 'linkAtivo' : ''}>CLIENTES</Link>
+                                    onClick={() => setSelectedLink('/admin/funcionarios')} >
+                                    <Link to="/admin/funcionarios" className={selectedLink === '/admin/funcionarios' ? 'linkAtivo' : ''}>FUNCIONARIOS</Link>
                                 </span >
                             </li>
                             <li>
