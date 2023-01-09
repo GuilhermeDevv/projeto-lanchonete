@@ -65,8 +65,9 @@ export function C_adm() {
                             <li>
                                 <HiUser style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span
-                                    className={selectedLink === 'cliente' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('cliente')} >CLIENTES</span >
+                                    onClick={() => setSelectedLink('/admin/clientes')} >
+                                    <Link to="/admin/clientes" className={selectedLink === '/admin/clientes' ? 'linkAtivo' : ''}>CLIENTES</Link>
+                                </span >
                             </li>
                             <li>
                                 <BsCashCoin style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
@@ -98,7 +99,6 @@ export function C_adm() {
                                     onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
                             </li>
                         </ul>
-
                     </div>
 
                 </MenuSite>
