@@ -21,7 +21,7 @@ const schema = yup.object({
 }).required()
 
 function criarUsuario({ nome, senha, email }) {
-    axios.defaults.baseURL = "http://192.168.1.2:8080"
+    axios.defaults.baseURL = "http://192.168.1.10:8080"
     axios.post("/criarUsuario", {
         nome,
         senha,

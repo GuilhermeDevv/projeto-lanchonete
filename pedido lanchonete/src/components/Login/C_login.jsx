@@ -17,7 +17,7 @@ const schema = yup.object({
 export function C_login() {
     const estilosIcon = { position: 'absolute', margin: "13px 0px 0px 5px", fontSize: "11px" }
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
-    const API_URL = "http://192.168.1.2:8080";
+    const API_URL = "http://192.168.1.10:8080";
 
     const navigate = useNavigate();
     function temAcesso({ email, senha }) {
