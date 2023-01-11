@@ -78,6 +78,7 @@ export const Table = styled.table`
   td {
     font-size: 1.2rem;
     padding: 1.5rem;
+    text-transform: capitalize;
     text-align: left;
     @media (max-width: 670px){
         font-size: 7px;
