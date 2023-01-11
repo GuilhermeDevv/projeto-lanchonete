@@ -3,17 +3,19 @@ import { ContainerFuncionario, ContentFuncionario, FormFuncionario } from './sty
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import axios from 'axios';
 
 const schema = yup.object({
     nome: yup.string().required("Campo vazio."),
-    sexo: yup.string().required("").oneOf(["F", "M"]),
+    genero: yup.string().required("").oneOf(["F", "M"]),
     cpf: yup.string().transform((value) => (isNaN(value) ? undefined : value)).max(11, 'Algo de errado.').required("Campo vazio."),
     idade: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .required('Campo vazio.')
         .positive('Idade incorreta.'),
-    cargo: yup.string().required("Selecione o cargo.")
+    cargo: yup.string().required("Selecione o cargo."),
+    email: yup.string().required('campo vazio.')
 }).required()
 
 export function C_cadastrarFuncionario() {
@@ -22,9 +24,26 @@ export function C_cadastrarFuncionario() {
     const [radio, setRadio] = useState('F');
 
 
+    axios.defaults.baseURL = "http://192.168.1.10:8080"
+    function cadastro({ cargo, cpf, genero, idade, nome }) {
+        if (!cargo || !cpf || !genero || !idade || !nome) {
+            return
+        } else {
 
-    function teste(dados) {
-        console.log(dados)
+            axios.post("/cadastrarFuncionario", {
+                cargo,
+                cpf,
+                genero,
+                idade,
+                nome
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            ).then(res => { console.log(res) }).catch(err => { console.log(err) })
+
+        }
     }
 
 
@@ -32,38 +51,46 @@ export function C_cadastrarFuncionario() {
         <ContainerFuncionario>
             <ContentFuncionario>
                 <h1>Cadastrar funcionários</h1>
-                <FormFuncionario onSubmit={handleSubmit(teste)}>
+                <FormFuncionario onSubmit={handleSubmit(cadastro)}>
                     <div>
                         <label>Nome</label>
                         <input
                             type="text"
-
                             placeholder='Nome completo'
                             {...register("nome")}
                         />
                         <p>{errors.nome?.message}</p>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type="text"
+                            placeholder='E-mail'
+                            {...register("email")}
+                        />
+                        <p>{errors.email?.message}</p>
                     </div>
                     <label>Sexo</label>
                     <span>
                         <label>Feminino</label>
                         <input
                             checked={radio === 'F'}
-                            onClick ={(event) => setRadio(event.target.value)}
+                            onClick={(event) => setRadio(event.target.value)}
                             type="radio"
                             name='opcaoSexo'
                             value="F"
-                            {...register("sexo")}
+                            {...register("genero")}
                         />
                         <label>  Masculino</label>
                         <input
                             checked={radio === 'M'}
-                            onClick ={(event) => setRadio(event.target.value)}
+                            onClick={(event) => setRadio(event.target.value)}
                             type="radio"
                             name='opcaoSexo'
                             value="M"
-                            {...register("sexo")}
+                            {...register("genero")}
                         />
-                        <p>{errors.sexo?.message}</p>
+                        <p>{errors.genero?.message}</p>
                     </span>
                     <div>
                         <label>CPF</label>
