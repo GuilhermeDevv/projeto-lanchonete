@@ -4,7 +4,7 @@ const express = require("express");
 const { verificarAcesso, cadastrarUsuario, pegarDados, recuperarConta, verificarUrl } = require("../../controllers/users")
 
 //admin
-const { cadastrarFuncionario } = require("../../controllers/funcionario")
+const { cadastrarFuncionario, listarFuncionario } = require("../../controllers/funcionario")
 
 //middleware
 const route = require("express").Router();
@@ -21,6 +21,7 @@ route.post("/novaSenha", verificarUrl)
 
 //admin
 route.post("/cadastrarFuncionario", cadastrarFuncionario)
+route.get("/listarFuncionario", listarFuncionario)
 
 
 module.exports = route

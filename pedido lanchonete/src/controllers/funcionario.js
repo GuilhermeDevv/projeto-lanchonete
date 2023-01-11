@@ -26,6 +26,21 @@ async function cadastrarFuncionario(req, res) {
 }
 
 
+function listarFuncionario(req, res) {
 
-module.exports = { cadastrarFuncionario }
+    modelFuncionario.find({}, (err, users) => {
+
+        if (err) {
+            return res.status(404).json({ mensagem: "Erro, erro no servidor", sucesso: false });
+        }
+        else {
+            return res.status(200).json(users)
+        }
+
+    })
+
+}
+
+
+module.exports = { cadastrarFuncionario, listarFuncionario }
 
