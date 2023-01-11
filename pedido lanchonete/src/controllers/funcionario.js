@@ -10,11 +10,16 @@ async function cadastrarFuncionario(req, res) {
         return res.status(404).json({ mensagem: "Erro, dados em branco", sucesso: false });
     }
 
+    const dados = await modelFuncionario.find({ email })
+    if (dados.length !== 0) {
+        return res.status(404).json({ mensagem: "Erro, Funcionário existente.", sucesso: false })
+    }
+
     // Cria uma nova instância do modelo Funcionario
     const funcionario = new modelFuncionario({ nome, genero, cpf, cargo, email });
 
     // Salva a nova instância do modelo Funcionario no banco de dados
-    await funcionario.save();
+    funcionario.save();
 
     // Retorna uma resposta de sucesso
     return res.json({ mensagem: "Sucesso, funcionário cadastrado", sucesso: true });
