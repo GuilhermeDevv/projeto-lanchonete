@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios"
 import { ContainerCliente, ContentCliente, Nav, Table, Tbody, Thead } from './style';
 
 export function C_funcionario() {
-    const users = [
-        { id: 1, nome: 'João', email: 'joao@gmail.com', cargo: 'ADMINISTRADOR' },
-        { id: 2, nome: 'Maria', email: 'maria@gmail.com', cargo: 'CAIXA' },
-        { id: 3, nome: 'Pedro', email: 'pedro@gmail.com', cargo: 'GARÇOM' },
-        { id: 4, nome: 'Ana', email: 'ana@gmail.com', cargo: 'ENTREGADOR' }
-    ];
     const [linkAtivo, setLinkAtivo] = useState("todos")
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        axios.defaults.baseURL = 'http://192.168.1.10:8080'
+        axios.get("/listarFuncionario", { headers: "Content-Type: application/json" }).then(({ data }) => { setUsers(data) });
+
+    }, [linkAtivo]);
     const [procuraPorUser, setProcuraPorUser] = useState('');
     const [dadosPorCargo, setDadosPorCargo] = useState('');
 
@@ -17,7 +18,8 @@ export function C_funcionario() {
     );
 
     function filtrarPorCargo(cargo) {
-        const usuariosComOCargo = users.filter((user) => user.cargo.includes(cargo.toUpperCase()))
+        
+        const usuariosComOCargo = users.filter((user) => user.cargo.toUpperCase().includes(cargo.toUpperCase()))
         return usuariosComOCargo
     }
 
@@ -30,13 +32,13 @@ export function C_funcionario() {
             setDadosPorCargo("")
         }
         else {
-            console.log(cargo)
             const value = await filtrarPorCargo(cargo)
             setDadosPorCargo(value)
             setProcuraPorUser("")
 
         }
     }
+
 
 
     return (
@@ -48,8 +50,8 @@ export function C_funcionario() {
                         type="text"
                         placeholder="Pesquisar usuários..."
                         value={procuraPorUser}
-                        onChange={event => setProcuraPorUser(event.target.value )}
-                        
+                        onChange={event => setProcuraPorUser(event.target.value)}
+
                     />
                 </div>
                 <Nav>
@@ -73,20 +75,21 @@ export function C_funcionario() {
                     <Tbody>
                         {
                             dadosPorCargo ? dadosPorCargo.map(user => (
-                                <tr key={user.id}>
+                                <tr key={user._id}>
                                     <td>{user.nome}</td>
                                     <td>{user.email}</td>
                                     <td>ATIVO</td>
-                                    <td>{user.cargo}</td>
+                                    <td>{user.cargo.toUpperCase()}</td>
                                 </tr>
                             )) : filtroDeUsuario.map(user => (
-                                < tr key={user.id}>
+                                < tr key={user._id}>
                                     <td>{user.nome}</td>
                                     <td>{user.email}</td>
                                     <td>ATIVO</td>
-                                    <td>{user.cargo}</td>
+                                    <td>{user.cargo.toUpperCase()}</td>
                                 </tr>))
                         }
+
                     </Tbody>
                 </Table>
             </ContentCliente>

@@ -113,10 +113,10 @@ export function C_cadastrarFuncionario() {
                     <div>
                         <label htmlFor="cargo">Cargo</label>
                         <select name="cargo" id="cargo" {...register("cargo")} >
-                            <option value="Administrador">Administrador</option>
-                            <option value="Caixa">Caixa</option>
-                            <option value="Garçom">Garçom</option>
-                            <option value="Entregador" >Entregador</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="caixa">Caixa</option>
+                            <option value="garçom">Garçom</option>
+                            <option value="entregador" >Entregador</option>
                         </select>
                         <p>{errors.cargo?.message}</p>
                     </div>
