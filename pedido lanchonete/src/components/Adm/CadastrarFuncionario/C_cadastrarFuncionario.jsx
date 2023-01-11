@@ -25,8 +25,8 @@ export function C_cadastrarFuncionario() {
 
 
     axios.defaults.baseURL = "http://192.168.1.10:8080"
-    function cadastro({ cargo, cpf, genero, idade, nome }) {
-        if (!cargo || !cpf || !genero || !idade || !nome) {
+    function cadastro({ cargo, cpf, genero, idade, nome, email }) {
+        if (!cargo || !cpf || !genero || !idade || !nome || !email) {
             return
         } else {
 
@@ -35,7 +35,8 @@ export function C_cadastrarFuncionario() {
                 cpf,
                 genero,
                 idade,
-                nome
+                nome,
+                email
             }, {
                 headers: {
                     'Content-Type': 'application/json'
