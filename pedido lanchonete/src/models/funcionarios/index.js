@@ -6,7 +6,8 @@ const schema = new mongoose.Schema({
     genero: String,
     cpf: String,
     idade: String,
-    cargo: String
+    cargo: String,
+    email: String
 })
 
 const ModelFuncionario = mongoose.model("funcionario", schema)
