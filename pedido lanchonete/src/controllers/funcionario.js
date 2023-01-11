@@ -14,9 +14,9 @@ async function cadastrarFuncionario(req, res) {
     if (dados.length !== 0) {
         return res.status(404).json({ mensagem: "Erro, Funcionário existente.", sucesso: false })
     }
-
+    let status = 'ATIVO'
     // Cria uma nova instância do modelo Funcionario
-    const funcionario = new modelFuncionario({ nome, genero, cpf, cargo, email });
+    const funcionario = new modelFuncionario({ nome, genero, cpf, cargo, email, status });
 
     // Salva a nova instância do modelo Funcionario no banco de dados
     funcionario.save();
