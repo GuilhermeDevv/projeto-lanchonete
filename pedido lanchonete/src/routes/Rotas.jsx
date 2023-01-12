@@ -8,6 +8,7 @@ import { AlterarSenha } from "../pages/AlterarSenha/AlterarSenha"
 import { Adm } from "../pages/Adm/Adm"
 import { C_cadastrarFuncionario } from '../components/Adm/CadastrarFuncionario/C_cadastrarFuncionario';
 import { C_funcionario } from '../components/Adm/Funcionarios/C_Funcionarios';
+import { C_vendas } from '../components/Adm/Vendas/C_vendas';
 
 
 export function Rotas() {
@@ -22,6 +23,7 @@ export function Rotas() {
             <Route path='/admin' element={<Adm />} >
                 <Route path='cadastrarFuncionario' element={<C_cadastrarFuncionario />} />
                 <Route path='funcionarios' element={<C_funcionario />} />
+                <Route path='vendas' element={<C_vendas />} />
             </Route >
         </Routes>
     );
