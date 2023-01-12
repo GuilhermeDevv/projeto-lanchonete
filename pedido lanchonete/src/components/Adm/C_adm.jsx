@@ -82,9 +82,9 @@ export function C_adm() {
                             </li>
                             <li>
                                 <FcSalesPerformance style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
-                                <span
-                                    className={selectedLink === 'vendas' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('vendas')} >VENDAS</span>
+                                <span onClick={() => setSelectedLink('/admin/vendas')} >
+                                    <Link to="/admin/vendas" className={selectedLink === '/admin/vendas' ? 'linkAtivo' : ''}>VENDAS</Link>
+                                </span>
                             </li>
                             <li>
                                 <BsTable style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
