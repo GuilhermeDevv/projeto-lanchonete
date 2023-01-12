@@ -31,10 +31,10 @@ export function C_adm() {
                             <ul>
                                 <li >
 
+                                    
                                     <span>Configuração</span>
                                 </li>
                                 <li >
-
                                     <span>Sair</span>
                                 </li>
                             </ul>
