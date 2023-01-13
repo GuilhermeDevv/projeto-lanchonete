@@ -23,7 +23,7 @@ export function Rotas() {
             <Route path='/admin' element={<Adm />} >
                 <Route path='cadastrarFuncionario' element={<C_cadastrarFuncionario />} />
                 <Route path='funcionarios' element={<C_funcionario />} />
-                <Route path='vendas' element={<C_vendas />} />
+                <Route path='vendas' element={< C_vendas />} />
             </Route >
         </Routes>
     );
