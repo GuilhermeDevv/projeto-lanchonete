@@ -31,7 +31,7 @@ export function C_adm() {
                             <ul>
                                 <li >
 
-                                    
+
                                     <span>Configuração</span>
                                 </li>
                                 <li >
@@ -89,24 +89,26 @@ export function C_adm() {
                             <li>
                                 <BsTable style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span
-                                    className={selectedLink === 'pedido' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('pedido')} >PEDIDOS</span>
-                            </li>
-                            <li>
-                                <GiCardboardBoxClosed style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
-                                <span
-                                    className={selectedLink === 'estoque' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
-                            </li>
-                        </ul>
-                    </div>
 
-                </MenuSite>
-                <MainPage>
-                    {selectedLink == "/admin" ? <DadosHome /> : ""}
-                    <Outlet />
-                </MainPage>
-            </ContentAdm>
+                                    onClick={() => setSelectedLink('/admin/cadastrarProduto')} >
+                                    <Link className={selectedLink === '/admin/cadastrarProduto' ? 'linkAtivo' : ''} to="/admin/cadastrarProduto">CAD. PRODUDO</Link>
+                            </span>
+                        </li>
+                        <li>
+                            <GiCardboardBoxClosed style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
+                            <span
+                                className={selectedLink === 'estoque' ? 'linkAtivo' : ''}
+                                onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </MenuSite>
+            <MainPage>
+                {selectedLink == "/admin" ? <DadosHome /> : ""}
+                <Outlet />
+            </MainPage>
+        </ContentAdm>
         </ContainerAdm >
     );
 }
