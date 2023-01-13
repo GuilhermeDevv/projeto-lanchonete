@@ -9,6 +9,7 @@ import { Adm } from "../pages/Adm/Adm"
 import { C_cadastrarFuncionario } from '../components/Adm/CadastrarFuncionario/C_cadastrarFuncionario';
 import { C_funcionario } from '../components/Adm/Funcionarios/C_Funcionarios';
 import { C_vendas } from '../components/Adm/Vendas/C_vendas';
+import { C_cadastrarProduto } from '../components/Adm/CadastrarProduto/C_cadastrarProduto';
 
 
 export function Rotas() {
@@ -24,6 +25,7 @@ export function Rotas() {
                 <Route path='cadastrarFuncionario' element={<C_cadastrarFuncionario />} />
                 <Route path='funcionarios' element={<C_funcionario />} />
                 <Route path='vendas' element={< C_vendas />} />
+                <Route path='cadastrarProduto' element={< C_cadastrarProduto />} />
             </Route >
         </Routes>
     );
