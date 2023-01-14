@@ -13,10 +13,10 @@ export function C_vendas() {
         pedidos.nome.toLowerCase().includes(nome.toLowerCase())
 
     );
-    // useEffect(() => {
-    //     axios.defaults.baseURL = 'http://192.168.1.10:8080'
-    //     axios.get("/listarPedidos", { headers: "Content-Type: application/json" }).then(({ pedidos }) => { setAllVendas(pedidos) });
-    // }, [nome]);
+    useEffect(() => {
+        axios.defaults.baseURL = 'http://192.168.1.4:8080'
+        axios.get("/listarVendas", { params: { nPedido: 1 }, headers: "Content-Type: application/json" }).then((data) => { console.log(data) });
+    }, []);
     return (
         <ContainerVendas>
             <ContentVendas>
