@@ -72,8 +72,9 @@ export function C_adm() {
                             <li>
                                 <BsFillCartFill style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span
-                                    className={selectedLink === 'produto' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('produto')} >PRODUTOS</span>
+                                    onClick={() => setSelectedLink('/admin/produto')}>
+                                    <Link to="/admin/produto" className={selectedLink === '/admin/produto' ? "linkAtivo" : ''}>PRODUTOS</Link>
+                                </span>
                             </li>
                             <li>
                                 <FcSalesPerformance style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
@@ -87,23 +88,23 @@ export function C_adm() {
 
                                     onClick={() => setSelectedLink('/admin/cadastrarProduto')} >
                                     <Link className={selectedLink === '/admin/cadastrarProduto' ? 'linkAtivo' : ''} to="/admin/cadastrarProduto">CAD. PRODUDO</Link>
-                            </span>
-                        </li>
-                        <li>
-                            <GiCardboardBoxClosed style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
-                            <span
-                                className={selectedLink === 'estoque' ? 'linkAtivo' : ''}
-                                onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
-                        </li>
-                    </ul>
-                </div>
+                                </span>
+                            </li>
+                            <li>
+                                <GiCardboardBoxClosed style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
+                                <span
+                                    className={selectedLink === 'estoque' ? 'linkAtivo' : ''}
+                                    onClick={() => setSelectedLink('estoque')} >ESTOQUE</span>
+                            </li>
+                        </ul>
+                    </div>
 
-            </MenuSite>
-            <MainPage>
-                {selectedLink == "/admin" ? <DadosHome /> : ""}
-                <Outlet />
-            </MainPage>
-        </ContentAdm>
+                </MenuSite>
+                <MainPage>
+                    {selectedLink == "/admin" ? <DadosHome /> : ""}
+                    <Outlet />
+                </MainPage>
+            </ContentAdm>
         </ContainerAdm >
     );
 }
