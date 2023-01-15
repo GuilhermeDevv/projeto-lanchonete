@@ -70,11 +70,6 @@ export function C_adm() {
                                 </span >
                             </li>
                             <li>
-                                <BsCashCoin style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
-                                <span className={selectedLink === 'faturamento' ? 'linkAtivo' : ''}
-                                    onClick={() => setSelectedLink('faturamento')} >FATURAMENTO</span>
-                            </li>
-                            <li>
                                 <BsFillCartFill style={styleIconLeft} onClick={() => { setIconLeft(true) }} />
                                 <span
                                     className={selectedLink === 'produto' ? 'linkAtivo' : ''}
