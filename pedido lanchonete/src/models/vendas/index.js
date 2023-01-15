@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
 
 })
 
-const modelVendas = mongoose.model("produtos", schema)
+const modelVendas = mongoose.model("vendas", schema)
 
 module.exports = modelVendas
